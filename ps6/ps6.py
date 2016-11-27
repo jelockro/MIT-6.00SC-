@@ -66,7 +66,15 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        raise NotImplementedError
+        #errors, int is not iterable.
+        self.width = width
+        self.height = height
+        self.tiles ={}
+        for x in range(0, self.width ):
+            for y in range(0, self.height ):
+                self.tiles[(x,y)] = False 
+        print self.tiles
+        #raise NotImplementedError        
     
     def cleanTileAtPosition(self, pos):
         """
@@ -76,7 +84,12 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        raise NotImplementedError
+        x = int(math.floor(pos.getX()))
+        y = int(math.floor(pos.getY()))
+        self.tiles[(x,y)] = True
+        #print 'x position is:', x
+        #print 'y position is:', y
+        #raise NotImplementedError
 
     def isTileCleaned(self, m, n):
         """
@@ -88,7 +101,8 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        raise NotImplementedError
+        return self.tiles[(m,n)]
+        #raise NotImplementedError
     
     def getNumTiles(self):
         """
@@ -96,7 +110,8 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        return len(self.tiles)
+        #raise NotImplementedError
 
     def getNumCleanedTiles(self):
         """
@@ -104,15 +119,36 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        
+        return sum(self.tiles.values())
+        
+        #raise NotImplementedError
 
+    def getCleanedTilesRatio(self):
+        """
+        gets cleaned tiles divided by total tiles.
+        """
+        var1 = int(self.getNumCleanedTiles())
+        var2 = self.getNumTiles()
+        #print 'type var1:', type(var1)
+        #print 'type var2:', type(var2)
+        
+        #print 'num clean tiles:', self.getNumCleanedTiles()
+        #print 'num tiles:', self.getNumTiles()
+        ratio =  int(self.getNumCleanedTiles()) / float(self.getNumTiles())
+        #print 'ratio:', ratio
+        return ratio
+    
     def getRandomPosition(self):
         """
         Return a random position inside the room.
-
+        random.random()
+            Return the next random floating point number in the range [0.0, 1.0)
+        remember positions are floats
         returns: a Position object.
         """
-        raise NotImplementedError
+        return Position(random.random() * self.width, random.random() * self.height)
+        #raise NotImplementedError
 
     def isPositionInRoom(self, pos):
         """
@@ -121,7 +157,14 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        raise NotImplementedError
+        x = int(math.floor(pos.getX()))
+        y = int(math.floor(pos.getY()))
+        pos = (x,y)
+        if pos in self.tiles.keys():
+            return True
+        else:
+            return False
+        #raise NotImplementedError
 
 
 class Robot(object):
