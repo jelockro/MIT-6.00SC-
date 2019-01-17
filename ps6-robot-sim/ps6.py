@@ -57,6 +57,10 @@ class RectangularRoom(object):
     A room has a width and a height and contains (width * height) tiles. At any
     particular time, each of these tiles is either clean or dirty.
     """
+    #default values of room are 1x1
+    self.height = 1
+    self.width = 1
+    self.cleanedTiles =[]
     def __init__(self, width, height):
         """
         Initializes a rectangular room with the specified width and height.
@@ -66,30 +70,30 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        #errors, int is not iterable.
-        self.width = width
-        self.height = height
-        self.tiles ={}
-        for x in range(0, self.width ):
-            for y in range(0, self.height ):
-                self.tiles[(x,y)] = False 
-        print self.tiles
-        #raise NotImplementedError        
+        if width > 0:
+            self.width = width
+        else if width < 0:
+            print "ERROR: cannot initialize: width must be greater than 0"
+            raise NotImplementedError
+            break
+
+        if height > 0:
+            self.height = height
+        else if height < 0:
+            print "ERROR: cannot initialize: height must be greater than 0"
+            raise NotImplementedError
+            break
     
     def cleanTileAtPosition(self, pos):
         """
         Mark the tile under the position POS as cleaned.
 
-        Assumes that POS represents a valid position inside this room.
+        !!Assumes that POS represents a valid position inside this room.
 
         pos: a Position
         """
-        x = int(math.floor(pos.getX()))
-        y = int(math.floor(pos.getY()))
-        self.tiles[(x,y)] = True
-        #print 'x position is:', x
-        #print 'y position is:', y
-        #raise NotImplementedError
+        
+        self.cleanedTiles.append(pos)
 
     def isTileCleaned(self, m, n):
         """
@@ -101,8 +105,10 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        return self.tiles[(m,n)]
-        #raise NotImplementedError
+        for i in cleanedTiles.length:
+            if m,n == 
+        
+        raise NotImplementedError
     
     def getNumTiles(self):
         """
@@ -110,8 +116,7 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        return len(self.tiles)
-        #raise NotImplementedError
+        raise NotImplementedError
 
     def getNumCleanedTiles(self):
         """
@@ -119,36 +124,15 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        
-        return sum(self.tiles.values())
-        
-        #raise NotImplementedError
+        raise NotImplementedError
 
-    def getCleanedTilesRatio(self):
-        """
-        gets cleaned tiles divided by total tiles.
-        """
-        var1 = int(self.getNumCleanedTiles())
-        var2 = self.getNumTiles()
-        #print 'type var1:', type(var1)
-        #print 'type var2:', type(var2)
-        
-        #print 'num clean tiles:', self.getNumCleanedTiles()
-        #print 'num tiles:', self.getNumTiles()
-        ratio =  int(self.getNumCleanedTiles()) / float(self.getNumTiles())
-        #print 'ratio:', ratio
-        return ratio
-    
     def getRandomPosition(self):
         """
         Return a random position inside the room.
-        random.random()
-            Return the next random floating point number in the range [0.0, 1.0)
-        remember positions are floats
+
         returns: a Position object.
         """
-        return Position(random.random() * self.width, random.random() * self.height)
-        #raise NotImplementedError
+        raise NotImplementedError
 
     def isPositionInRoom(self, pos):
         """
@@ -157,14 +141,7 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        x = int(math.floor(pos.getX()))
-        y = int(math.floor(pos.getY()))
-        pos = (x,y)
-        if pos in self.tiles.keys():
-            return True
-        else:
-            return False
-        #raise NotImplementedError
+        raise NotImplementedError
 
 
 class Robot(object):
